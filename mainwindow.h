@@ -2,8 +2,23 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QMap>
-#include <QUrl>
+#include <QLabel>
+#include <QLineEdit>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QResizeEvent>
+#include <QDebug>
+#include <QMouseEvent>
+#include <QRandomGenerator>
+#include "clickablelabel.h"
+#include "circularbutton.h"
+#include "citybuttons.h"
+#include "picturelabel.h"
+#include "searchline.h"
+
+const int WFIRST = 782;
+const int HFIRST = 531;
+const int RAND_DIAPOSON = 50;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,9 +34,19 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QPushButton *randomButton;
+    QVBoxLayout *layout;
+    SearchLine *searchLine;
+    ClickableLabel *pictureLabel;
+    CityButtons buttons;
+    QHash<int, int> hashMap;
+    QVector<CityInfoWidget> *infoWidgets;
+    int canResize, randInd;
 
-    const QString pathToMap = "https://yandex.by/maps/geo/53177019/?ll=27.441630%2C53.864423&z=11.1";
-    QMap myMap
-
+    void showRandomCity();
+    int getRandom();
+protected:
+    void resizeEvent(QResizeEvent *event) override;
 };
+
 #endif // MAINWINDOW_H
